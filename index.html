@@ -565,12 +565,16 @@
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.3);
+            padding: 12px 20px;
             border-radius: 25px;
-            backdrop-filter: blur(10px);
-            font-size: 0.9rem;
+            backdrop-filter: blur(15px);
+            font-size: 1rem;
+            font-weight: 600;
             z-index: 1000;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            color: white;
         }
 
         .keyboard-hint {
@@ -627,6 +631,24 @@
             font-weight: 600;
         }
 
+        .contact-info {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 2rem;
+            border: 1px solid rgba(78, 205, 196, 0.3);
+        }
+
+        .contact-info p {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .contact-info strong {
+            color: #4ecdc4;
+        }
+
         @media (max-width: 768px) {
             .slide {
                 padding: 30px;
@@ -661,15 +683,12 @@
 </head>
 <body>
     <div class="presentation-container">
-        <div class="slide-counter">
-            <span id="current-slide">1</span> / <span id="total-slides">12</span>
-        </div>
 
         <!-- Slide 1: Title -->
         <div class="slide active">
-            <h1>getCarePoint</h1>
-            <h3 class="subtitle">The AI Copilot for Patient Retention</h3>
-            <p class="subtitle">Eliminating patient leakage. Unlocking billions in lost healthcare revenue.</p>
+            <h1>Recoverly.ai</h1>
+            <h3 class="subtitle">The AI Engine for Patient Recovery</h3>
+            <p class="subtitle">Reclaim lost revenue by rescuing patients before they disappear.</p>
         </div>
 
         <!-- Slide 2: Problem -->
@@ -756,7 +775,7 @@
         <!-- Slide 4: Solution -->
         <div class="slide">
             <h2>Our Solution: AI-Powered Patient Prioritization</h2>
-            <h3>getCarePoint's Proprietary AI Urgency Engine</h3>
+            <h3>Recoverly.ai's Proprietary AI Urgency Engine</h3>
             
             <div class="solution-workflow">
                 <div class="workflow-step">
@@ -895,7 +914,7 @@
         <!-- Slide 8: Demo -->
         <div class="slide">
             <h2>Live Demo: AI-Powered Patient Prioritization</h2>
-            <h3>Real getCarePoint Dashboard in Action</h3>
+            <h3>Real Recoverly.ai Dashboard in Action</h3>
             
             <div class="dashboard-demo">
                 <div class="dashboard-header">
@@ -1035,8 +1054,8 @@
 
         <!-- Slide 12: Contact -->
         <div class="slide">
-            <h1>getCarePoint</h1>
-            <h3 class="subtitle">The AI Copilot for Patient Retention</h3>
+            <h1>Recoverly.ai</h1>
+            <h3 class="subtitle">The AI Engine for Patient Recovery</h3>
             
             <div class="stats-grid">
                 <div class="stat-card">
@@ -1054,6 +1073,12 @@
             </div>
 
             <p class="subtitle">Ready to transform patient care together</p>
+            
+            <div class="contact-info">
+                <p><strong>Website:</strong> recoverly.ai</p>
+                <p><strong>Demo:</strong> demo.recoverly.ai</p>
+                <p><strong>Pitch:</strong> pitch.recoverly.ai</p>
+            </div>
         </div>
 
         <div class="navigation">
@@ -1072,31 +1097,65 @@
 
     <script>
         let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
-        const totalSlides = slides.length;
+        let slides;
+        let totalSlides;
 
-        document.getElementById('total-slides').textContent = totalSlides;
-
-        function showSlide(n) {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (n + totalSlides) % totalSlides;
-            slides[currentSlide].classList.add('active');
-            document.getElementById('current-slide').textContent = currentSlide + 1;
+        // Initialize when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            slides = document.querySelectorAll('.slide');
+            totalSlides = slides.length;
             
-            // Update button states
+            // Set initial values
+            const currentSlideElement = document.getElementById('current-slide');
+            const totalSlidesElement = document.getElementById('total-slides');
+            
+            if (currentSlideElement) currentSlideElement.textContent = '1';
+            if (totalSlidesElement) totalSlidesElement.textContent = totalSlides.toString();
+            
+            // Update button states initially
+            updateButtonStates();
+            
+            console.log('Initialized: Total slides =', totalSlides, 'Current slide =', currentSlide + 1);
+        });
+
+        function updateSlideCounter() {
+            const slideCounter = document.querySelector('.slide-counter');
+            if (slideCounter) {
+                // Replace the entire counter content
+                slideCounter.innerHTML = `<span id="current-slide">${currentSlide + 1}</span> / <span id="total-slides">${totalSlides}</span>`;
+                console.log('Updated counter to:', currentSlide + 1);
+            }
+        }
+
+        function updateButtonStates() {
             const prevBtn = document.getElementById('prevBtn');
             const nextBtn = document.getElementById('nextBtn');
             
-            prevBtn.disabled = currentSlide === 0;
-            nextBtn.disabled = currentSlide === totalSlides - 1;
+            if (prevBtn) prevBtn.disabled = currentSlide === 0;
+            if (nextBtn) nextBtn.disabled = currentSlide === totalSlides - 1;
+        }
+
+        function showSlide(n) {
+            if (!slides) return;
+            
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            
+            updateSlideCounter();
+            updateButtonStates();
         }
 
         function nextSlide() {
-            showSlide(currentSlide + 1);
+            if (currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            }
         }
 
         function previousSlide() {
-            showSlide(currentSlide - 1);
+            if (currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
         }
 
         // Keyboard navigation
