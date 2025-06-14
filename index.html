@@ -1,1198 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>getCarePoint - Pitch Deck</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            overflow: hidden;
-        }
-
-        .presentation-container {
-            width: 100vw;
-            height: 100vh;
-            position: relative;
-        }
-
-        .slide {
-            width: 100%;
-            height: 100%;
-            display: none;
-            padding: 60px;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            text-align: center;
-            position: relative;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            overflow-y: auto;
-        }
-
-        .slide.active {
-            display: flex;
-        }
-
-        .slide h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .slide h2 {
-            font-size: 2.5rem;
-            font-weight: 600;
-            margin-bottom: 2rem;
-            color: #ff6b6b;
-        }
-
-        .slide h3 {
-            font-size: 1.8rem;
-            font-weight: 500;
-            margin-bottom: 1.5rem;
-            opacity: 0.9;
-        }
-
-        .slide p {
-            font-size: 1.3rem;
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-            max-width: 800px;
-            opacity: 0.9;
-        }
-
-        .subtitle {
-            font-size: 1.5rem;
-            margin-bottom: 3rem;
-            opacity: 0.8;
-            font-weight: 300;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
-            width: 100%;
-            max-width: 1000px;
-        }
-
-        .stat-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: transform 0.3s ease;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .stat-number {
-            font-size: 3rem;
-            font-weight: 700;
-            color: #4ecdc4;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-description {
-            font-size: 0.95rem;
-            opacity: 0.8;
-            line-height: 1.4;
-        }
-
-        .problem-points {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-            width: 100%;
-            max-width: 1000px;
-        }
-
-        .problem-point {
-            background: rgba(255, 107, 107, 0.1);
-            border-left: 4px solid #ff6b6b;
-            padding: 1.5rem;
-            border-radius: 8px;
-            text-align: left;
-            transition: all 0.3s ease;
-        }
-
-        .problem-point:hover {
-            background: rgba(255, 107, 107, 0.15);
-            transform: translateX(5px);
-        }
-
-        .problem-point h4 {
-            color: #ff6b6b;
-            margin-bottom: 0.8rem;
-            font-size: 1.2rem;
-        }
-
-        .problem-point p {
-            margin-bottom: 0.5rem;
-            line-height: 1.4;
-        }
-
-        .financial-detail {
-            color: #4ecdc4 !important;
-            font-weight: 600;
-            font-style: italic;
-            font-size: 0.95rem;
-        }
-
-        .solution-workflow {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin: 2rem 0;
-            width: 100%;
-            max-width: 1200px;
-        }
-
-        .workflow-step {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 1.5rem;
-            border: 1px solid rgba(78, 205, 196, 0.3);
-            text-align: center;
-            position: relative;
-            flex: 1;
-            min-width: 220px;
-            max-width: 250px;
-            transition: transform 0.3s ease;
-        }
-
-        .workflow-step:hover {
-            transform: translateY(-5px);
-            border-color: #4ecdc4;
-        }
-
-        .step-number {
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #4ecdc4;
-            color: #1e3c72;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 1rem;
-        }
-
-        .step-content {
-            margin-top: 10px;
-        }
-
-        .step-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .step-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: #4ecdc4;
-            line-height: 1.3;
-        }
-
-        .workflow-step p {
-            font-size: 0.95rem;
-            line-height: 1.4;
-            opacity: 0.9;
-        }
-
-        .workflow-arrow {
-            font-size: 2rem;
-            color: #4ecdc4;
-            font-weight: bold;
-            margin: 0 0.5rem;
-            opacity: 0.7;
-        }
-
-        .secret-sauce {
-            background: linear-gradient(45deg, rgba(78, 205, 196, 0.2), rgba(255, 107, 107, 0.2));
-            border: 2px solid #4ecdc4;
-            border-radius: 15px;
-            padding: 2rem;
-            margin-top: 2rem;
-            text-align: center;
-        }
-
-        .secret-sauce h4 {
-            color: #4ecdc4;
-            margin-bottom: 1.5rem;
-            font-size: 1.4rem;
-        }
-
-        .risk-factors {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .risk-factor {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 0.8rem 1.5rem;
-            border-radius: 25px;
-            font-weight: 500;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
-        }
-
-        .risk-factor:hover {
-            background: rgba(78, 205, 196, 0.2);
-            border-color: #4ecdc4;
-        }
-
-        @media (max-width: 768px) {
-            .solution-workflow {
-                flex-direction: column;
-            }
-            
-            .workflow-arrow {
-                transform: rotate(90deg);
-                margin: 0.5rem 0;
-            }
-            
-            .risk-factors {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            .workflow-step {
-                max-width: 100%;
-            }
-        }
-
-        .moat-pyramid {
-            width: 100%;
-            max-width: 600px;
-            margin: 2rem auto;
-        }
-
-        .moat-level {
-            background: rgba(255, 255, 255, 0.1);
-            margin: 0.5rem 0;
-            padding: 1.5rem;
-            border-radius: 10px;
-            border-left: 4px solid #4ecdc4;
-        }
-
-        .pricing-table {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-            width: 100%;
-            max-width: 900px;
-        }
-
-        .pricing-tier {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            text-align: center;
-        }
-
-        .tier-price {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #4ecdc4;
-            margin: 1rem 0;
-        }
-
-        .dashboard-demo {
-            background: rgba(255, 255, 255, 0.95);
-            color: #333;
-            border-radius: 15px;
-            padding: 2rem;
-            margin: 2rem 0;
-            width: 100%;
-            max-width: 1000px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .dashboard-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid #f0f0f0;
-        }
-
-        .dashboard-header h4 {
-            color: #333;
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
-
-        .dashboard-search {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        .dashboard-search input {
-            padding: 8px 15px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            width: 250px;
-        }
-
-        .upload-btn {
-            background: #4A90E2;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 500;
-        }
-
-        .risk-categories {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .risk-category {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 1.5rem;
-            border-left: 4px solid;
-            transition: all 0.3s ease;
-        }
-
-        .risk-category:hover {
-            transform: translateX(5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .high-risk {
-            border-left-color: #dc3545;
-            background: linear-gradient(90deg, rgba(220, 53, 69, 0.1) 0%, #f8f9fa 100%);
-        }
-
-        .medium-risk {
-            border-left-color: #ffc107;
-            background: linear-gradient(90deg, rgba(255, 193, 7, 0.1) 0%, #f8f9fa 100%);
-        }
-
-        .low-risk {
-            border-left-color: #28a745;
-            background: linear-gradient(90deg, rgba(40, 167, 69, 0.1) 0%, #f8f9fa 100%);
-        }
-
-        .risk-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .risk-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
-
-        .risk-dot.red {
-            background: #dc3545;
-        }
-
-        .risk-dot.yellow {
-            background: #ffc107;
-        }
-
-        .risk-dot.green {
-            background: #28a745;
-        }
-
-        .risk-label {
-            font-weight: 600;
-            font-size: 1.1rem;
-            color: #333;
-        }
-
-        .risk-count {
-            background: rgba(0, 0, 0, 0.1);
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 1rem;
-        }
-
-        .risk-stats {
-            color: #666;
-            font-size: 0.9rem;
-            margin-left: auto;
-        }
-
-        .risk-description {
-            color: #666;
-            font-size: 0.95rem;
-            margin-left: 2rem;
-            font-style: italic;
-        }
-
-        .demo-callout {
-            background: rgba(78, 205, 196, 0.1);
-            border: 2px solid #4ecdc4;
-            border-radius: 15px;
-            padding: 2rem;
-            margin-top: 2rem;
-            text-align: center;
-        }
-
-        .demo-callout h4 {
-            color: #4ecdc4;
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-        }
-
-        .demo-callout p {
-            color: white;
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .founder-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
-            width: 100%;
-            max-width: 1000px;
-        }
-
-        .founder-card {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            text-align: left;
-        }
-
-        .ask-circle {
-            width: 100%;
-            max-width: 600px;
-            margin: 2rem auto;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-        }
-
-        .ask-item {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 2rem;
-            text-align: center;
-        }
-
-        .navigation {
-            position: fixed;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            padding: 0 30px;
-            z-index: 1000;
-            pointer-events: none;
-        }
-
-        .nav-btn {
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            color: white;
-            padding: 15px 20px;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            pointer-events: auto;
-            font-size: 1.1rem;
-            font-weight: 500;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .nav-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: scale(1.05);
-        }
-
-        .nav-btn:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .slide-counter {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.3);
-            padding: 12px 20px;
-            border-radius: 25px;
-            backdrop-filter: blur(15px);
-            font-size: 1rem;
-            font-weight: 600;
-            z-index: 1000;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            color: white;
-        }
-
-        .keyboard-hint {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 8px 15px;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            font-size: 0.8rem;
-            opacity: 0.7;
-            z-index: 1000;
-        }
-
-        .quote {
-            font-style: italic;
-            font-size: 1.4rem;
-            color: #4ecdc4;
-            margin: 2rem 0;
-            padding: 1rem;
-            border-left: 4px solid #4ecdc4;
-            background: rgba(78, 205, 196, 0.1);
-        }
-
-        .financial-impact {
-            background: linear-gradient(45deg, rgba(220, 53, 69, 0.2), rgba(255, 107, 107, 0.2));
-            border: 2px solid #dc3545;
-            border-radius: 15px;
-            padding: 2rem;
-            margin-top: 2rem;
-            text-align: left;
-        }
-
-        .financial-impact h4 {
-            color: #ff6b6b;
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-            text-align: center;
-        }
-
-        .financial-impact p {
-            color: white;
-            font-size: 1.1rem;
-            margin-bottom: 0.8rem;
-            line-height: 1.4;
-        }
-
-        .highlight {
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 600;
-        }
-
-        .contact-info {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 2rem;
-            margin-top: 2rem;
-            border: 1px solid rgba(78, 205, 196, 0.3);
-        }
-
-        .contact-info p {
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-            color: white;
-        }
-
-        .contact-info strong {
-            color: #4ecdc4;
-        }
-
-        @media (max-width: 768px) {
-            .slide {
-                padding: 30px;
-            }
-            
-            .slide h1 {
-                font-size: 2.5rem;
-            }
-            
-            .slide h2 {
-                font-size: 2rem;
-            }
-            
-            .demo-section {
-                grid-template-columns: 1fr;
-            }
-
-            .navigation {
-                padding: 0 15px;
-            }
-
-            .nav-btn {
-                padding: 12px 16px;
-                font-size: 0.9rem;
-            }
-
-            .keyboard-hint {
-                display: none;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recoverly.ai - Problem & Market Slides</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom right, #1a237e, #171c4a);
+      color: #ffffff;
+    }
+
+    .slide {
+      height: 100vh;
+      padding: 60px 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .slide h2 {
+      font-size: 2.5rem;
+      color: #26c6da;
+      margin-bottom: 0.5rem;
+    }
+
+    .slide .subhead {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      font-weight: 300;
+      color: #e0e0e0;
+    }
+
+    .quote-box {
+      background: rgba(38, 198, 218, 0.1);
+      border-left: 4px solid #26c6da;
+      padding: 1rem 1.5rem;
+      margin: 1.5rem 0;
+      font-style: italic;
+      color: #26c6da;
+    }
+
+    .metrics {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+
+    .metric-card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 1.5rem;
+      min-width: 220px;
+      position: relative;
+    }
+
+    .metric-card h3 {
+      font-size: 2.2rem;
+      color: #26c6da;
+      margin: 0;
+      font-weight: 700;
+    }
+
+    .metric-card p {
+      margin-top: 0.5rem;
+      font-size: 1rem;
+      color: #e0e0e0;
+    }
+
+    .metric-icon {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 1.5rem;
+    }
+
+    .final-line {
+      margin-top: 2rem;
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: #26c6da;
+    }
+
+    .market-visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+      gap: 1.5rem;
+    }
+
+    .highlight {
+      font-size: 3rem;
+      padding: 10px 20px;
+      border: 2px solid #26c6da;
+      border-radius: 12px;
+      display: inline-block;
+      margin-top: 2rem;
+      color: #26c6da;
+      font-weight: bold;
+    }
+
+    .quote-box.bottom {
+      max-width: 700px;
+      margin: 2rem auto 0;
+    }
+
+    @media (max-width: 600px) {
+      .market-visual {
+        flex-direction: column;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="presentation-container">
-
-        <!-- Slide 1: Title -->
-        <div class="slide active">
-            <h1>Recoverly.ai</h1>
-            <h3 class="subtitle">The AI Engine for Patient Recovery</h3>
-            <p class="subtitle">Reclaim lost revenue by rescuing patients before they disappear.</p>
-        </div>
-
-        <!-- Slide 2: Problem -->
-        <div class="slide">
-            <h2>The Problem: Healthcare's $150 Billion Patient Leakage Crisis</h2>
-            
-            <div class="quote">
-                "We only realize a patient vanished… when the labs come back broken."<br>
-                <em>— La Juana, RN, 25 years in care coordination</em>
-            </div>
-
-            <h3>This isn't a patient issue. It's a systemic failure, costing healthcare providers billions in lost revenue and worsening outcomes.</h3>
-            
-            <div class="problem-points">
-                <div class="problem-point">
-                    <h4>💊 Rx Non-Adherence</h4>
-                    <p>Patients skip critical medications, often due to cost, with no system alert.</p>
-                    <p class="financial-detail">Leading to millions in lost pharmacy revenue and unmanaged chronic conditions.</p>
-                </div>
-                <div class="problem-point">
-                    <h4>📅 Missed Appointments</h4>
-                    <p>No-shows cost clinics up to <strong>$200/hour in lost physician revenue</strong>, amounting to <strong>$150,000 annually</strong> for independent practices.</p>
-                </div>
-                <div class="problem-point">
-                    <h4>📊 Care Gap Amplification</h4>
-                    <p>Manual tracking (binders, sticky notes) ensures missed follow-ups escalate into costly acute events.</p>
-                    <p class="financial-detail">Preventable complications become expensive emergency interventions.</p>
-                </div>
-            </div>
-
-            <div class="financial-impact">
-                <h4>The Cost of Doing Nothing:</h4>
-                <p>• Diabetic patients skip insulin → ER visits costing $15K+ each</p>
-                <p>• Hypertensive patients miss follow-ups → strokes costing $100K+ each</p>
-                <p>• Mental health patients fall through cracks → crisis interventions</p>
-            </div>
-        </div>
-
-        <!-- Slide 3: Market -->
-        <div class="slide">
-            <h2>Market Opportunity: $35 Billion Addressable Market</h2>
-            <h3>Massive Scale, Immediate Need</h3>
-            
-            <div class="quote">
-                The U.S. healthcare system hemorrhages $150 billion annually from patient leakage and critical care gaps.
-            </div>
-
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-number">230K+</div>
-                    <div class="stat-label">Medical Practices</div>
-                    <div class="stat-description">Primary care clinics in the U.S. - our target market</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">$150K</div>
-                    <div class="stat-label">Average Annual Loss</div>
-                    <div class="stat-description">Per clinic from patient leakage and no-shows</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">$35B</div>
-                    <div class="stat-label">Total Addressable Market</div>
-                    <div class="stat-description">230K practices × $150K loss = Our market opportunity</div>
-                </div>
-            </div>
-
-            <div class="problem-points">
-                <div class="problem-point">
-                    <h4>$150K-$352K Annual CCM Revenue Potential</h4>
-                    <p>Proactive Chronic Care Management programs per 250 enrolled patients, turning leakage into predictable recurring revenue</p>
-                </div>
-                <div class="problem-point">
-                    <h4>70% Patient Disengagement Risk</h4>
-                    <p>Patients who miss one visit are likely to disengage long-term, losing significant lifetime care value</p>
-                </div>
-                <div class="problem-point">
-                    <h4>18% Costly Readmissions</h4>
-                    <p>Hospitalizations result in expensive acute care within 30 days due to inadequate follow-up</p>
-                </div>
-            </div>
-
-            <p><strong class="highlight">This is not just leakage. It's a massive, quantifiable opportunity to unlock patient lifetime value and drive predictable revenue.</strong></p>
-        </div>
-
-        <!-- Slide 4: Solution -->
-        <div class="slide">
-            <h2>Our Solution: AI-Powered Patient Prioritization</h2>
-            <h3>Recoverly.ai's Proprietary AI Urgency Engine</h3>
-            
-            <div class="solution-workflow">
-                <div class="workflow-step">
-                    <div class="step-number">1</div>
-                    <div class="step-content">
-                        <div class="step-icon">🧠</div>
-                        <div class="step-title">AI-Powered Risk Detection</div>
-                        <p>Our AI analyzes patient data to flag risk before clinics even know there's a problem</p>
-                    </div>
-                </div>
-                
-                <div class="workflow-arrow">→</div>
-                
-                <div class="workflow-step">
-                    <div class="step-number">2</div>
-                    <div class="step-content">
-                        <div class="step-icon">📋</div>
-                        <div class="step-title">Smart Daily Action Lists</div>
-                        <p>"Who Needs Help Today" - prioritized by clinical urgency + financial risk + adherence patterns</p>
-                    </div>
-                </div>
-                
-                <div class="workflow-arrow">→</div>
-                
-                <div class="workflow-step">
-                    <div class="step-number">3</div>
-                    <div class="step-content">
-                        <div class="step-icon">📱</div>
-                        <div class="step-title">Automated HIPAA-Compliant Outreach</div>
-                        <p>Warm, branded messages that prompt immediate patient action</p>
-                    </div>
-                </div>
-                
-                <div class="workflow-arrow">→</div>
-                
-                <div class="workflow-step">
-                    <div class="step-number">4</div>
-                    <div class="step-content">
-                        <div class="step-icon">🔄</div>
-                        <div class="step-title">Full-Loop Resolution Tracking</div>
-                        <p>Logs patient responses and outcomes for compliance and continuous improvement</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="secret-sauce">
-                <h4>🎯 The Secret Sauce: Three-Factor Risk Scoring</h4>
-                <div class="risk-factors">
-                    <span class="risk-factor">1. Clinical Risk Indicators</span>
-                    <span class="risk-factor">2. Adherence Patterns</span>
-                    <span class="risk-factor">3. Financial/Affordability Signals</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 5: Competitive Advantage -->
-        <div class="slide">
-            <h2>Why We Win: Intelligent Retention as Clinical Workflow</h2>
-            <h3>Our Competitive Moat</h3>
-            
-            <div class="moat-pyramid">
-                <div class="moat-level">
-                    <h4>🏆 First to Operationalize Patient Retention</h4>
-                    <p>Most tools focus on messaging. We embed retention directly into the clinical workflow, surfacing patients who would otherwise vanish.</p>
-                </div>
-                <div class="moat-level">
-                    <h4>🤖 Purpose-Built AI Risk Engine</h4>
-                    <p>Built specifically to detect drop-offs: missed meds, no-shows, unaffordable fills. Not just LLMs — real risk signals from the care journey.</p>
-                </div>
-                <div class="moat-level">
-                    <h4>⚙️ Customizable Triage Rules</h4>
-                    <p>Clinics define who’s high-priority. Tailor urgency logic by diagnosis, payer, or visit type — no black box rules.</p>
-                </div>
-                <div class="moat-level">
-                    <h4>🔌 Works Without EMR Integration</h4>
-                    <p>Upload a CSV. Or type in names. That’s it. Zero technical setup, zero IT coordination.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 6: Pricing -->
-        <div class="slide">
-            <h2>Simple, Scalable Pricing Model</h2>
-            <h3>Designed for >80% Gross Margin at Scale</h3>
-            
-            <div class="pricing-table">
-                <div class="pricing-tier">
-                    <h4>Starter</h4>
-                    <div class="tier-price">$250</div>
-                    <p>Up to 100 patients</p>
-                    <p><strong>Solo/small practices</strong></p>
-                </div>
-                <div class="pricing-tier">
-                    <h4>Growth</h4>
-                    <div class="tier-price">$500</div>
-                    <p>Up to 500 patients</p>
-                    <p><strong>Mid-size clinics</strong></p>
-                </div>
-                <div class="pricing-tier">
-                    <h4>Enterprise</h4>
-                    <div class="tier-price">$1,000+</div>
-                    <p>1,000+ patients</p>
-                    <p><strong>Multi-site networks & FQHCs</strong></p>
-                </div>
-            </div>
-
-            <p><strong>Key Benefits:</strong> Predictable SaaS pricing • No per-message fees • Zero integration costs</p>
-        </div>
-
-        <!-- Slide 7: Growth -->
-        <div class="slide">
-            <h2>Revenue Growth: 3-Year Path to $2.5M ARR</h2>
-            <h3>Targeting Multi-Million Dollar ARR</h3>
-            
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-number">Year 1</div>
-                    <div class="stat-label">$250K ARR</div>
-                    <div class="stat-description">50 starter + 20 growth customers<br>Focus: Product-market fit validation</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">Year 2</div>
-                    <div class="stat-label">$1M ARR</div>
-                    <div class="stat-description">150 total customers + 10 enterprise deals<br>Focus: Scalable customer acquisition</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">Year 3</div>
-                    <div class="stat-label">$2.5M ARR</div>
-                    <div class="stat-description">400+ total customers + 50+ enterprise<br>Focus: Market expansion & new products</div>
-                </div>
-            </div>
-
-            <p><em>High gross margin at scale. Solving a billion-dollar problem.</em></p>
-        </div>
-
-        <!-- Slide 8: Demo -->
-        <div class="slide">
-            <h2>Live Demo: AI-Powered Patient Prioritization</h2>
-            <h3>Real Recoverly.ai Dashboard in Action</h3>
-            
-            <div class="dashboard-demo">
-                <div class="dashboard-header">
-                    <h4>Patient Outreach Dashboard</h4>
-                    <div class="dashboard-search">
-                        <input type="text" placeholder="Search patients by name or contact" readonly>
-                        <button class="upload-btn">📤 Upload Patients</button>
-                    </div>
-                </div>
-                
-                <div class="risk-categories">
-                    <div class="risk-category high-risk">
-                        <div class="risk-header">
-                            <span class="risk-dot red"></span>
-                            <span class="risk-label">HIGH RISK</span>
-                            <span class="risk-count">43</span>
-                            <span class="risk-stats">Contacted: 2 | No Response: 0 | Uncontacted: 41</span>
-                        </div>
-                        <div class="risk-description">Patients requiring immediate clinical attention</div>
-                    </div>
-                    
-                    <div class="risk-category medium-risk">
-                        <div class="risk-header">
-                            <span class="risk-dot yellow"></span>
-                            <span class="risk-label">MEDIUM RISK</span>
-                            <span class="risk-count">44</span>
-                            <span class="risk-stats">Contacted: 5 | No Response: 0 | Uncontacted: 39</span>
-                        </div>
-                        <div class="risk-description">Patients needing follow-up within days</div>
-                    </div>
-                    
-                    <div class="risk-category low-risk">
-                        <div class="risk-header">
-                            <span class="risk-dot green"></span>
-                            <span class="risk-label">LOW RISK</span>
-                            <span class="risk-count">23</span>
-                            <span class="risk-stats">Contacted: 1 | No Response: 0 | Uncontacted: 22</span>
-                        </div>
-                        <div class="risk-description">Routine maintenance and preventive care</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="demo-callout">
-                <h4>🎯 The Game Changer</h4>
-                <p>Staff see <strong>exactly who needs attention first</strong> - no more guessing, no more working alphabetically</p>
-                <p><strong>110 patients</strong> automatically sorted by <strong>clinical urgency + adherence risk + financial barriers</strong></p>
-            </div>
-        </div>
-
-        <!-- Slide 9: Founder -->
-        <div class="slide">
-            <h2>Founder: Built for Scale, Building for Care</h2>
-            <h3>Deep Technical + Personal Credibility</h3>
-            
-            <div class="founder-grid">
-                <div class="founder-card">
-                    <h4>🏗️ Built for Scale</h4>
-                    <p><strong>10+ years as product leader</strong></p>
-                    <p>Shipped products used by 1,800+ banks and millions of users. Proven ability to scale technology.</p>
-                </div>
-                <div class="founder-card">
-                    <h4>❤️ Lived the Pain</h4>
-                    <p><strong>Family Caregiver Experience</strong></p>
-                    <p>Navigating chronic care for aging parents. Deeply understands patient leakage challenges firsthand.</p>
-                </div>
-                <div class="founder-card">
-                    <h4>⚡ Full-Stack Builder</h4>
-                    <p><strong>Solo Product Development</strong></p>
-                    <p>Designed, PM'd, and engineered getCarePoint from concept to working UI. No technical dependencies.</p>
-                </div>
-            </div>
-
-            <div class="quote">
-                "I've spent a decade building products that move money efficiently. Now I'm building products that keep people healthy efficiently."
-            </div>
-            
-            <p><strong class="highlight">"I've built for scale. Now I'm building for care."</strong></p>
-        </div>
-
-        <!-- Slide 10: The Ask -->
-        <div class="slide">
-            <h2>The Ask: $1.5M–$2M Validation Round</h2>
-            <h3>Fueling Market Validation to Growth</h3>
-            
-            <div class="ask-circle">
-                <div class="ask-item">
-                    <h4>💰 Raising $1.5M–$2M</h4>
-                    <p>12-15 months runway to validate product-market fit</p>
-                </div>
-                <div class="ask-item">
-                    <h4>🛠️ Product Development (40%)</h4>
-                    <p>Finalize AI engine & secure HIPAA messaging portal</p>
-                </div>
-                <div class="ask-item">
-                    <h4>🚀 Growth & Acquisition (35%)</h4>
-                    <p>Launch and convert pilot programs into early ARR</p>
-                </div>
-                <div class="ask-item">
-                    <h4>👥 Team Expansion (25%)</h4>
-                    <p>Strategic hires for engineering, customer success, business development</p>
-                </div>
-            </div>
-
-            <div class="quote">
-                "This is a validation fund — not a prototype fund."
-            </div>
-        </div>
-
-        <!-- Slide 11: Future Vision -->
-        <div class="slide">
-            <h2>Future Vision: The Retention Engine</h2>
-            <h3>Beyond the Clinic – Proactive Care Everywhere</h3>
-            
-            <div class="solution-steps">
-                <div class="solution-step">
-                    <div class="step-icon">🏥</div>
-                    <div class="step-title">Universal Retention Engine</div>
-                    <p>Intelligence Layer for All Chronic Care - expand beyond primary care to specialists and health systems</p>
-                </div>
-                <div class="solution-step">
-                    <div class="step-icon">🔮</div>
-                    <div class="step-title">Predictive AI Platform</div>
-                    <p>Proactive Risk Prevention - identify systemic risks across populations before they become crises</p>
-                </div>
-                <div class="solution-step">
-                    <div class="step-icon">🤝</div>
-                    <div class="step-title">Ecosystem Partnerships</div>
-                    <p>Strategic Healthcare Alliances - integration with payers, pharmaceutical companies, and care management</p>
-                </div>
-            </div>
-
-            <div class="quote">
-                "A world where no patient falls through the cracks, optimizing health outcomes for all."
-            </div>
-        </div>
-
-        <!-- Slide 12: Contact -->
-        <div class="slide">
-            <h1>Recoverly.ai</h1>
-            <h3 class="subtitle">The AI Engine for Patient Recovery</h3>
-            
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-label">Demo Available</div>
-                    <div class="stat-description">Live walkthrough of AI urgency engine and priority dashboard</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Pilot Program</div>
-                    <div class="stat-description">90-day proof-of-concept with immediate ROI measurement</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">References</div>
-                    <div class="stat-description">Available from beta clinic partners</div>
-                </div>
-            </div>
-
-            <p class="subtitle">Ready to transform patient care together</p>
-            
-            <div class="contact-info">
-                <p><strong>Website:</strong> recoverly.ai</p>
-                <p><strong>Demo:</strong> demo.recoverly.ai</p>
-                <p><strong>Pitch:</strong> pitch.recoverly.ai</p>
-            </div>
-        </div>
-
-        <div class="navigation">
-            <button class="nav-btn" id="prevBtn" onclick="previousSlide()">← Previous</button>
-            <button class="nav-btn" id="nextBtn" onclick="nextSlide()">Next →</button>
-        </div>
-
-        <div class="slide-counter">
-            <span id="current-slide">1</span> / <span id="total-slides">12</span>
-        </div>
-
-        <div class="keyboard-hint">
-            Use ← → keys or swipe
-        </div>
+  <!-- Slide 1: The Problem -->
+  <div class="slide">
+    <h2>The Problem: Healthcare's $150 Billion Patient Leakage Crisis</h2>
+    <div class="subhead">When patients fall through the cracks, clinics bleed revenue.</div>
+    <div class="quote-box">
+      "We only realize a patient vanished… when the labs come back broken."<br>
+      — La Juana, RN, 25 years in care coordination
     </div>
+    <p>Healthcare providers lose <strong>$150,000 annually per clinic</strong> when patients disappear from care.</p>
+    <div class="metrics">
+      <div class="metric-card">
+        <div class="metric-icon">💸</div>
+        <h3>$200/hr</h3>
+        <p>Lost Revenue<br />Per no-show appointment</p>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon">🚪</div>
+        <h3>70%</h3>
+        <p>Patient Drop-off<br />After missing one visit</p>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon">🏥</div>
+        <h3>$15K+</h3>
+        <p>ER Visit Cost<br />From preventable complications</p>
+      </div>
+    </div>
+    <div class="final-line">
+      This isn’t a patient problem. It’s a system failure.
+    </div>
+  </div>
 
-    <script>
-        let currentSlide = 0;
-        let slides;
-        let totalSlides;
-
-        // Initialize when DOM is ready
-        document.addEventListener('DOMContentLoaded', function() {
-            slides = document.querySelectorAll('.slide');
-            totalSlides = slides.length;
-            
-            // Set initial values
-            const currentSlideElement = document.getElementById('current-slide');
-            const totalSlidesElement = document.getElementById('total-slides');
-            
-            if (currentSlideElement) currentSlideElement.textContent = '1';
-            if (totalSlidesElement) totalSlidesElement.textContent = totalSlides.toString();
-            
-            // Update button states initially
-            updateButtonStates();
-            
-            console.log('Initialized: Total slides =', totalSlides, 'Current slide =', currentSlide + 1);
-        });
-
-        function updateSlideCounter() {
-            const slideCounter = document.querySelector('.slide-counter');
-            if (slideCounter) {
-                // Replace the entire counter content
-                slideCounter.innerHTML = `<span id="current-slide">${currentSlide + 1}</span> / <span id="total-slides">${totalSlides}</span>`;
-                console.log('Updated counter to:', currentSlide + 1);
-            }
-        }
-
-        function updateButtonStates() {
-            const prevBtn = document.getElementById('prevBtn');
-            const nextBtn = document.getElementById('nextBtn');
-            
-            if (prevBtn) prevBtn.disabled = currentSlide === 0;
-            if (nextBtn) nextBtn.disabled = currentSlide === totalSlides - 1;
-        }
-
-        function showSlide(n) {
-            if (!slides) return;
-            
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (n + totalSlides) % totalSlides;
-            slides[currentSlide].classList.add('active');
-            
-            updateSlideCounter();
-            updateButtonStates();
-        }
-
-        function nextSlide() {
-            if (currentSlide < totalSlides - 1) {
-                showSlide(currentSlide + 1);
-            }
-        }
-
-        function previousSlide() {
-            if (currentSlide > 0) {
-                showSlide(currentSlide - 1);
-            }
-        }
-
-        // Keyboard navigation
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'ArrowRight' || e.key === ' ') {
-                nextSlide();
-                e.preventDefault();
-            } else if (e.key === 'ArrowLeft') {
-                previousSlide();
-                e.preventDefault();
-            }
-        });
-
-        // Touch navigation for mobile
-        let touchStartX = 0;
-        let touchEndX = 0;
-
-        document.addEventListener('touchstart', function(e) {
-            touchStartX = e.changedTouches[0].screenX;
-        });
-
-        document.addEventListener('touchend', function(e) {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-        });
-
-        function handleSwipe() {
-            if (touchEndX < touchStartX - 50) {
-                nextSlide();
-            }
-            if (touchEndX > touchStartX + 50) {
-                previousSlide();
-            }
-        }
-
-        // Auto-advance slides every 30 seconds (optional)
-        // setInterval(nextSlide, 30000);
-    </script>
+  <!-- Slide 2: The Market -->
+  <div class="slide">
+    <h2>Market Opportunity: $35 Billion Addressable Market</h2>
+    <p>The Math is Simple</p>
+    <div class="market-visual">
+      <div class="metric-card">
+        <h3>230K</h3>
+        <p>Primary Care Practices<br />Our target market in the U.S.</p>
+      </div>
+      <div class="metric-card">
+        <h3>×</h3>
+        <p>Each practice loses</p>
+      </div>
+      <div class="metric-card">
+        <h3>$150K</h3>
+        <p>Annual Patient Leakage<br />Lost revenue per clinic per year</p>
+      </div>
+    </div>
+    <div class="highlight">= $35 Billion</div>
+    <p>Total Addressable Market</p>
+    <div class="quote-box bottom">
+      Every clinic is bleeding money. We help them stop the bleeding and turn it into profit.
+    </div>
+  </div>
 </body>
 </html>
