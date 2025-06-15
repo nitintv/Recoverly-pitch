@@ -1,180 +1,1238 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Recoverly.ai - Problem & Market Slides</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(to bottom right, #1a237e, #171c4a);
-      color: #ffffff;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recoverly.ai - Pitch Deck</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    .slide {
-      height: 100vh;
-      padding: 60px 30px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2d3e80 0%, #1e2a5a 100%);
+            color: #ffffff;
+            overflow: hidden;
+        }
 
-    .slide h2 {
-      font-size: 2.5rem;
-      color: #26c6da;
-      margin-bottom: 0.5rem;
-    }
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
 
-    .slide .subhead {
-      font-size: 1.2rem;
-      margin-bottom: 1.5rem;
-      font-weight: 300;
-      color: #e0e0e0;
-    }
+        .slide {
+            width: 100%;
+            height: 100%;
+            display: none;
+            padding: 60px;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(135deg, #2d3e80 0%, #1e2a5a 100%);
+            overflow-y: auto;
+        }
 
-    .quote-box {
-      background: rgba(38, 198, 218, 0.1);
-      border-left: 4px solid #26c6da;
-      padding: 1rem 1.5rem;
-      margin: 1.5rem 0;
-      font-style: italic;
-      color: #26c6da;
-    }
+        .slide.active {
+            display: flex;
+        }
 
-    .metrics {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 2rem;
-      margin: 2rem 0;
-    }
+        .slide h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #26c6da;
+        }
 
-    .metric-card {
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
-      padding: 1.5rem;
-      min-width: 220px;
-      position: relative;
-    }
+        .slide h2 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: #26c6da;
+        }
 
-    .metric-card h3 {
-      font-size: 2.2rem;
-      color: #26c6da;
-      margin: 0;
-      font-weight: 700;
-    }
+        .slide h3 {
+            font-size: 1.8rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            color: #e0e0e0;
+        }
 
-    .metric-card p {
-      margin-top: 0.5rem;
-      font-size: 1rem;
-      color: #e0e0e0;
-    }
+        .slide p {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            max-width: 800px;
+            color: #e0e0e0;
+        }
 
-    .metric-icon {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      font-size: 1.5rem;
-    }
+        .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 3rem;
+            color: #e0e0e0;
+            font-weight: 300;
+        }
 
-    .final-line {
-      margin-top: 2rem;
-      font-weight: bold;
-      font-size: 1.2rem;
-      color: #26c6da;
-    }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+            width: 100%;
+            max-width: 1000px;
+        }
 
-    .market-visual {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 2rem;
-      gap: 1.5rem;
-    }
+        .stat-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(38, 198, 218, 0.3);
+            transition: transform 0.3s ease;
+        }
 
-    .highlight {
-      font-size: 3rem;
-      padding: 10px 20px;
-      border: 2px solid #26c6da;
-      border-radius: 12px;
-      display: inline-block;
-      margin-top: 2rem;
-      color: #26c6da;
-      font-weight: bold;
-    }
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: #26c6da;
+        }
 
-    .quote-box.bottom {
-      max-width: 700px;
-      margin: 2rem auto 0;
-    }
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #26c6da;
+            margin-bottom: 0.5rem;
+        }
 
-    @media (max-width: 600px) {
-      .market-visual {
-        flex-direction: column;
-      }
-    }
-  </style>
+        .stat-label {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+        }
+
+        .stat-description {
+            font-size: 0.95rem;
+            color: #e0e0e0;
+            line-height: 1.4;
+        }
+
+        .problem-points {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .problem-point {
+            background: rgba(255, 255, 255, 0.12);
+            border-left: 4px solid #26c6da;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: left;
+            transition: all 0.3s ease;
+        }
+
+        .problem-point:hover {
+            background: rgba(255, 255, 255, 0.18);
+            transform: translateX(5px);
+        }
+
+        .problem-point h4 {
+            color: #26c6da;
+            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+        }
+
+        .problem-point p {
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+            color: #ffffff;
+        }
+
+        .financial-detail {
+            color: #26c6da !important;
+            font-weight: 600;
+            font-style: italic;
+            font-size: 0.95rem;
+        }
+
+        .solution-workflow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .workflow-step {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid rgba(38, 198, 218, 0.4);
+            text-align: center;
+            position: relative;
+            flex: 1;
+            min-width: 220px;
+            max-width: 250px;
+            transition: transform 0.3s ease;
+        }
+
+        .workflow-step:hover {
+            transform: translateY(-5px);
+            border-color: #26c6da;
+        }
+
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #26c6da;
+            color: #2d3e80;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .step-content {
+            margin-top: 10px;
+        }
+
+        .step-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .step-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #26c6da;
+            line-height: 1.3;
+        }
+
+        .workflow-step p {
+            font-size: 0.95rem;
+            line-height: 1.4;
+            color: #e0e0e0;
+        }
+
+        .workflow-arrow {
+            font-size: 2rem;
+            color: #26c6da;
+            font-weight: bold;
+            margin: 0 0.5rem;
+            opacity: 0.7;
+        }
+
+        .secret-sauce {
+            background: linear-gradient(45deg, rgba(38, 198, 218, 0.2), rgba(41, 51, 103, 0.3));
+            border: 2px solid #26c6da;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .secret-sauce h4 {
+            color: #26c6da;
+            margin-bottom: 1.5rem;
+            font-size: 1.4rem;
+        }
+
+        .risk-factors {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .risk-factor {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 500;
+            border: 1px solid rgba(38, 198, 218, 0.3);
+            transition: all 0.3s ease;
+            color: #ffffff;
+        }
+
+        .risk-factor:hover {
+            background: rgba(38, 198, 218, 0.2);
+            border-color: #26c6da;
+        }
+
+        .moat-pyramid {
+            width: 100%;
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+
+        .moat-level {
+            background: rgba(255, 255, 255, 0.15);
+            margin: 0.5rem 0;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid #26c6da;
+        }
+
+        .moat-level h4 {
+            color: #26c6da;
+            margin-bottom: 0.8rem;
+        }
+
+        .moat-level p {
+            color: #e0e0e0;
+        }
+
+        .pricing-table {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+            width: 100%;
+            max-width: 900px;
+        }
+
+        .pricing-tier {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(38, 198, 218, 0.3);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .pricing-tier:hover {
+            transform: translateY(-5px);
+            border-color: #26c6da;
+        }
+
+        .pricing-tier h4 {
+            color: #26c6da;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .tier-price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #26c6da;
+            margin: 1rem 0;
+        }
+
+        .pricing-tier p {
+            color: #e0e0e0;
+            margin-bottom: 0.5rem;
+        }
+
+        .dashboard-demo {
+            background: rgba(255, 255, 255, 0.95);
+            color: #333;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            width: 100%;
+            max-width: 1000px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .dashboard-header h4 {
+            color: #333;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .dashboard-search {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .dashboard-search input {
+            padding: 8px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            width: 250px;
+        }
+
+        .upload-btn {
+            background: #26c6da;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .risk-categories {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .risk-category {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 1.5rem;
+            border-left: 4px solid;
+            transition: all 0.3s ease;
+        }
+
+        .risk-category:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .high-risk {
+            border-left-color: #dc3545;
+            background: linear-gradient(90deg, rgba(220, 53, 69, 0.1) 0%, #f8f9fa 100%);
+        }
+
+        .medium-risk {
+            border-left-color: #ffc107;
+            background: linear-gradient(90deg, rgba(255, 193, 7, 0.1) 0%, #f8f9fa 100%);
+        }
+
+        .low-risk {
+            border-left-color: #28a745;
+            background: linear-gradient(90deg, rgba(40, 167, 69, 0.1) 0%, #f8f9fa 100%);
+        }
+
+        .risk-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .risk-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .risk-dot.red {
+            background: #dc3545;
+        }
+
+        .risk-dot.yellow {
+            background: #ffc107;
+        }
+
+        .risk-dot.green {
+            background: #28a745;
+        }
+
+        .risk-label {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        .risk-count {
+            background: rgba(0, 0, 0, 0.1);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .risk-stats {
+            color: #666;
+            font-size: 0.9rem;
+            margin-left: auto;
+        }
+
+        .risk-description {
+            color: #666;
+            font-size: 0.95rem;
+            margin-left: 2rem;
+            font-style: italic;
+        }
+
+        .demo-callout {
+            background: rgba(38, 198, 218, 0.1);
+            border: 2px solid #26c6da;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .demo-callout h4 {
+            color: #26c6da;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .demo-callout p {
+            color: #ffffff;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .founder-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .founder-card {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(38, 198, 218, 0.3);
+            text-align: left;
+            transition: transform 0.3s ease;
+        }
+
+        .founder-card:hover {
+            transform: translateY(-5px);
+            border-color: #26c6da;
+        }
+
+        .founder-card h4 {
+            color: #26c6da;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .founder-card p {
+            color: #e0e0e0;
+            margin-bottom: 0.8rem;
+        }
+
+        .ask-circle {
+            width: 100%;
+            max-width: 600px;
+            margin: 2rem auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .ask-item {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid rgba(38, 198, 218, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .ask-item:hover {
+            transform: translateY(-5px);
+            border-color: #26c6da;
+        }
+
+        .ask-item h4 {
+            color: #26c6da;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .ask-item p {
+            color: #e0e0e0;
+        }
+
+        .navigation {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            padding: 0 30px;
+            z-index: 1000;
+            pointer-events: none;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(38, 198, 218, 0.4);
+            color: #ffffff;
+            padding: 15px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            pointer-events: auto;
+            font-size: 1.1rem;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-btn:hover {
+            background: rgba(38, 198, 218, 0.3);
+            transform: scale(1.05);
+            border-color: #26c6da;
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .slide-counter {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 12px 20px;
+            border-radius: 25px;
+            backdrop-filter: blur(15px);
+            font-size: 1rem;
+            font-weight: 600;
+            z-index: 1000;
+            border: 1px solid rgba(38, 198, 218, 0.4);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            color: #ffffff;
+        }
+
+        .keyboard-hint {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            font-size: 0.8rem;
+            color: #e0e0e0;
+            z-index: 1000;
+            border: 1px solid rgba(38, 198, 218, 0.4);
+        }
+
+        .quote {
+            font-style: italic;
+            font-size: 1.4rem;
+            color: #26c6da;
+            margin: 2rem 0;
+            padding: 1rem;
+            border-left: 4px solid #26c6da;
+            background: rgba(38, 198, 218, 0.1);
+            border-radius: 8px;
+        }
+
+        .financial-impact {
+            background: linear-gradient(45deg, rgba(38, 198, 218, 0.2), rgba(41, 51, 103, 0.3));
+            border: 2px solid #26c6da;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 2rem;
+            text-align: left;
+        }
+
+        .financial-impact h4 {
+            color: #26c6da;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            text-align: center;
+        }
+
+        .financial-impact p {
+            color: #ffffff;
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+            line-height: 1.4;
+        }
+
+        .highlight {
+            color: #26c6da;
+            font-weight: 600;
+        }
+
+        .contact-info {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 2rem;
+            border: 1px solid rgba(38, 198, 218, 0.4);
+        }
+
+        .contact-info p {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        .contact-info strong {
+            color: #26c6da;
+        }
+
+        @media (max-width: 768px) {
+            .slide {
+                padding: 30px;
+            }
+            
+            .slide h1 {
+                font-size: 2.5rem;
+            }
+            
+            .slide h2 {
+                font-size: 2rem;
+            }
+
+            .solution-workflow {
+                flex-direction: column;
+            }
+            
+            .workflow-arrow {
+                transform: rotate(90deg);
+                margin: 0.5rem 0;
+            }
+            
+            .risk-factors {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .workflow-step {
+                max-width: 100%;
+            }
+
+            .navigation {
+                padding: 0 15px;
+            }
+
+            .nav-btn {
+                padding: 12px 16px;
+                font-size: 0.9rem;
+            }
+
+            .keyboard-hint {
+                display: none;
+            }
+
+            .ask-circle {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- Slide 1: The Problem -->
-  <div class="slide">
-    <h2>The Problem: Healthcare's $150 Billion Patient Leakage Crisis</h2>
-    <div class="subhead">When patients fall through the cracks, clinics bleed revenue.</div>
-    <div class="quote-box">
-      "We only realize a patient vanished… when the labs come back broken."<br>
-      — La Juana, RN, 25 years in care coordination
-    </div>
-    <p>Healthcare providers lose <strong>$150,000 annually per clinic</strong> when patients disappear from care.</p>
-    <div class="metrics">
-      <div class="metric-card">
-        <div class="metric-icon">💸</div>
-        <h3>$200/hr</h3>
-        <p>Lost Revenue<br />Per no-show appointment</p>
-      </div>
-      <div class="metric-card">
-        <div class="metric-icon">🚪</div>
-        <h3>70%</h3>
-        <p>Patient Drop-off<br />After missing one visit</p>
-      </div>
-      <div class="metric-card">
-        <div class="metric-icon">🏥</div>
-        <h3>$15K+</h3>
-        <p>ER Visit Cost<br />From preventable complications</p>
-      </div>
-    </div>
-    <div class="final-line">
-      This isn’t a patient problem. It’s a system failure.
-    </div>
-  </div>
+    <div class="presentation-container">
 
-  <!-- Slide 2: The Market -->
-  <div class="slide">
-    <h2>Market Opportunity: $35 Billion Addressable Market</h2>
-    <p>The Math is Simple</p>
-    <div class="market-visual">
-      <div class="metric-card">
-        <h3>230K</h3>
-        <p>Primary Care Practices<br />Our target market in the U.S.</p>
-      </div>
-      <div class="metric-card">
-        <h3>×</h3>
-        <p>Each practice loses</p>
-      </div>
-      <div class="metric-card">
-        <h3>$150K</h3>
-        <p>Annual Patient Leakage<br />Lost revenue per clinic per year</p>
-      </div>
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <h1>Recoverly.ai</h1>
+            <h3 class="subtitle">The AI Engine for Patient Recovery</h3>
+            <p class="subtitle">Reclaim lost revenue by rescuing patients before they disappear.</p>
+        </div>
+
+        <!-- Slide 2: Problem -->
+        <div class="slide">
+            <h2>The Problem: Healthcare's $150 Billion Patient Leakage Crisis</h2>
+            <div style="font-size: 1.2rem; margin-bottom: 1.5rem; font-weight: 300; color: #e0e0e0;">
+                When patients fall through the cracks, clinics bleed revenue.
+            </div>
+            
+            <div class="quote" style="font-size: 1.6rem; margin: 2rem 0; max-width: 800px; background: rgba(38, 198, 218, 0.1); border-left: 4px solid #26c6da; padding: 1.5rem;">
+                "We only realize a patient vanished… when the labs come back broken."<br>
+                <em style="font-size: 1.1rem; opacity: 0.8;">— La Juana, RN, 25 years in care coordination</em>
+            </div>
+
+            <p style="font-size: 1.3rem; margin: 2rem 0; max-width: 800px;">
+                Healthcare providers lose <strong>$150,000 annually per clinic</strong> when patients disappear from care.
+            </p>
+            
+            <div class="stats-grid" style="max-width: 1000px; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin: 2rem 0;">
+                <div class="stat-card" style="position: relative;">
+                    <div style="position: absolute; top: 15px; right: 15px; font-size: 1.5rem;">💸</div>
+                    <div class="stat-number">$200/hr</div>
+                    <div class="stat-label">Lost Revenue</div>
+                    <div class="stat-description">Per no-show appointment</div>
+                </div>
+                <div class="stat-card" style="position: relative;">
+                    <div style="position: absolute; top: 15px; right: 15px; font-size: 1.5rem;">🚪</div>
+                    <div class="stat-number">70%</div>
+                    <div class="stat-label">Patient Drop-off</div>
+                    <div class="stat-description">After missing one visit</div>
+                </div>
+                <div class="stat-card" style="position: relative;">
+                    <div style="position: absolute; top: 15px; right: 15px; font-size: 1.5rem;">🏥</div>
+                    <div class="stat-number">$15K+</div>
+                    <div class="stat-label">ER Visit Cost</div>
+                    <div class="stat-description">From preventable complications</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem; font-weight: bold; font-size: 1.3rem; color: #26c6da;">
+                This isn't a patient problem. It's a system failure.
+            </div>
+        </div>
+
+        <!-- Slide 3: Market -->
+        <div class="slide">
+            <h2>Market Opportunity: $35 Billion Addressable Market</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem; color: #e0e0e0;">The Math is Simple</p>
+            
+            <div style="display: flex; align-items: center; justify-content: center; flex-wrap: wrap; margin: 2rem 0; gap: 2rem;">
+                <div class="stat-card" style="min-width: 220px;">
+                    <div class="stat-number">230K</div>
+                    <div class="stat-label">Primary Care Practices</div>
+                    <div class="stat-description">Our target market in the U.S.</div>
+                </div>
+                <div class="stat-card" style="min-width: 120px;">
+                    <div class="stat-number">×</div>
+                    <div class="stat-description">Each practice loses</div>
+                </div>
+                <div class="stat-card" style="min-width: 220px;">
+                    <div class="stat-number">$150K</div>
+                    <div class="stat-label">Annual Patient Leakage</div>
+                    <div class="stat-description">Lost revenue per clinic per year</div>
+                </div>
+            </div>
+            
+            <div style="font-size: 3rem; padding: 20px 40px; border: 2px solid #26c6da; border-radius: 12px; display: inline-block; margin: 2rem 0; color: #26c6da; font-weight: bold;">
+                = $35 Billion
+            </div>
+            
+            <p style="font-size: 1.2rem; margin-bottom: 2rem; color: #e0e0e0;">Total Addressable Market</p>
+            
+            <div class="quote" style="max-width: 700px; margin: 2rem auto 0; font-size: 1.3rem;">
+                Every clinic is bleeding money. We help them stop the bleeding and turn it into profit.
+            </div>
+        </div>
+
+        <!-- Slide 4: Solution -->
+        <div class="slide">
+            <h2>Our Solution: AI-Powered Patient Prioritization</h2>
+            <h3>Recoverly.ai's Proprietary AI Urgency Engine</h3>
+            
+            <div class="solution-workflow">
+                <div class="workflow-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <div class="step-icon">🧠</div>
+                        <div class="step-title">AI-Powered Risk Detection</div>
+                        <p>Our AI analyzes patient data to flag risk before clinics even know there's a problem</p>
+                    </div>
+                </div>
+                
+                <div class="workflow-arrow">→</div>
+                
+                <div class="workflow-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <div class="step-icon">📋</div>
+                        <div class="step-title">Smart Daily Action Lists</div>
+                        <p>"Who Needs Help Today" - prioritized by clinical urgency + financial risk + adherence patterns</p>
+                    </div>
+                </div>
+                
+                <div class="workflow-arrow">→</div>
+                
+                <div class="workflow-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <div class="step-icon">📱</div>
+                        <div class="step-title">Automated HIPAA-Compliant Outreach</div>
+                        <p>Warm, branded messages that prompt immediate patient action</p>
+                    </div>
+                </div>
+                
+                <div class="workflow-arrow">→</div>
+                
+                <div class="workflow-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <div class="step-icon">🔄</div>
+                        <div class="step-title">Full-Loop Resolution Tracking</div>
+                        <p>Logs patient responses and outcomes for compliance and continuous improvement</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="secret-sauce">
+                <h4>🎯 The Secret Sauce: Three-Factor Risk Scoring</h4>
+                <div class="risk-factors">
+                    <span class="risk-factor">1. Clinical Risk Indicators</span>
+                    <span class="risk-factor">2. Adherence Patterns</span>
+                    <span class="risk-factor">3. Financial/Affordability Signals</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Competitive Advantage -->
+        <div class="slide">
+            <h2>Why We Win: Intelligent Retention as Clinical Workflow</h2>
+            <h3>Our Competitive Moat</h3>
+            
+            <div class="moat-pyramid">
+                <div class="moat-level">
+                    <h4>🏆 First-Mover Advantage</h4>
+                    <p>First system treating patient retention as core clinical workflow, not just messaging</p>
+                </div>
+                <div class="moat-level">
+                    <h4>🤖 Proprietary AI Urgency Engine</h4>
+                    <p>Combines clinical status, adherence patterns, and affordability risk in ways competitors can't replicate</p>
+                </div>
+                <div class="moat-level">
+                    <h4>⚙️ Hyper-Customizable Triage Logic</h4>
+                    <p>Local logic adapts to unique clinic needs, patient populations, and care protocols</p>
+                </div>
+                <div class="moat-level">
+                    <h4>🔌 Zero Integration Overhead</h4>
+                    <p>Works via CSV upload or manual input with any EMR system - no expensive integrations required</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Pricing -->
+        <div class="slide">
+            <h2>Simple, Scalable Pricing Model</h2>
+            <h3>Designed for >80% Gross Margin at Scale</h3>
+            
+            <div class="pricing-table">
+                <div class="pricing-tier">
+                    <h4>Starter</h4>
+                    <div class="tier-price">$250</div>
+                    <p>Up to 100 patients</p>
+                    <p><strong>Solo/small practices</strong></p>
+                </div>
+                <div class="pricing-tier">
+                    <h4>Growth</h4>
+                    <div class="tier-price">$500</div>
+                    <p>Up to 500 patients</p>
+                    <p><strong>Mid-size clinics</strong></p>
+                </div>
+                <div class="pricing-tier">
+                    <h4>Enterprise</h4>
+                    <div class="tier-price">$1,000+</div>
+                    <p>1,000+ patients</p>
+                    <p><strong>Multi-site networks & FQHCs</strong></p>
+                </div>
+            </div>
+
+            <p><strong>Key Benefits:</strong> Predictable SaaS pricing • No per-message fees • Zero integration costs</p>
+        </div>
+
+        <!-- Slide 7: Growth -->
+        <div class="slide">
+            <h2>Revenue Growth: 3-Year Path to $2.5M ARR</h2>
+            <h3>Targeting Multi-Million Dollar ARR</h3>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">Year 1</div>
+                    <div class="stat-label">$250K ARR</div>
+                    <div class="stat-description">50 starter + 20 growth customers<br>Focus: Product-market fit validation</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">Year 2</div>
+                    <div class="stat-label">$1M ARR</div>
+                    <div class="stat-description">150 total customers + 10 enterprise deals<br>Focus: Scalable customer acquisition</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">Year 3</div>
+                    <div class="stat-label">$2.5M ARR</div>
+                    <div class="stat-description">400+ total customers + 50+ enterprise<br>Focus: Market expansion & new products</div>
+                </div>
+            </div>
+
+            <p><em>High gross margin at scale. Solving a billion-dollar problem.</em></p>
+        </div>
+
+        <!-- Slide 8: Demo -->
+        <div class="slide">
+            <h2>Live Demo: AI-Powered Patient Prioritization</h2>
+            <h3>Real Recoverly.ai Dashboard in Action</h3>
+            
+            <div class="dashboard-demo">
+                <div class="dashboard-header">
+                    <h4>Patient Outreach Dashboard</h4>
+                    <div class="dashboard-search">
+                        <input type="text" placeholder="Search patients by name or contact" readonly>
+                        <button class="upload-btn">📤 Upload Patients</button>
+                    </div>
+                </div>
+                
+                <div class="risk-categories">
+                    <div class="risk-category high-risk">
+                        <div class="risk-header">
+                            <span class="risk-dot red"></span>
+                            <span class="risk-label">HIGH RISK</span>
+                            <span class="risk-count">43</span>
+                            <span class="risk-stats">Contacted: 2 | No Response: 0 | Uncontacted: 41</span>
+                        </div>
+                        <div class="risk-description">Patients requiring immediate clinical attention</div>
+                    </div>
+                    
+                    <div class="risk-category medium-risk">
+                        <div class="risk-header">
+                            <span class="risk-dot yellow"></span>
+                            <span class="risk-label">MEDIUM RISK</span>
+                            <span class="risk-count">44</span>
+                            <span class="risk-stats">Contacted: 5 | No Response: 0 | Uncontacted: 39</span>
+                        </div>
+                        <div class="risk-description">Patients needing follow-up within days</div>
+                    </div>
+                    
+                    <div class="risk-category low-risk">
+                        <div class="risk-header">
+                            <span class="risk-dot green"></span>
+                            <span class="risk-label">LOW RISK</span>
+                            <span class="risk-count">23</span>
+                            <span class="risk-stats">Contacted: 1 | No Response: 0 | Uncontacted: 22</span>
+                        </div>
+                        <div class="risk-description">Routine maintenance and preventive care</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="demo-callout">
+                <h4>🎯 The Game Changer</h4>
+                <p>Staff see <strong>exactly who needs attention first</strong> - no more guessing, no more working alphabetically</p>
+                <p><strong>110 patients</strong> automatically sorted by <strong>clinical urgency + adherence risk + financial barriers</strong></p>
+            </div>
+        </div>
+
+        <!-- Slide 9: Founder -->
+        <div class="slide">
+            <h2>Founder: Built for Scale, Building for Care</h2>
+            <h3>Deep Technical + Personal Credibility</h3>
+            
+            <div class="founder-grid">
+                <div class="founder-card">
+                    <h4>🏗️ Built for Scale</h4>
+                    <p><strong>10+ years as product leader</strong></p>
+                    <p>Shipped products used by 1,800+ banks and millions of users. Proven ability to scale technology.</p>
+                </div>
+                <div class="founder-card">
+                    <h4>❤️ Lived the Pain</h4>
+                    <p><strong>Family Caregiver Experience</strong></p>
+                    <p>Navigating chronic care for aging parents. Deeply understands patient leakage challenges firsthand.</p>
+                </div>
+                <div class="founder-card">
+                    <h4>⚡ Full-Stack Builder</h4>
+                    <p><strong>Solo Product Development</strong></p>
+                    <p>Designed, PM'd, and engineered getCarePoint from concept to working UI. No technical dependencies.</p>
+                </div>
+            </div>
+
+            <div class="quote">
+                "I've spent a decade building products that move money efficiently. Now I'm building products that keep people healthy efficiently."
+            </div>
+            
+            <p><strong class="highlight">"I've built for scale. Now I'm building for care."</strong></p>
+        </div>
+
+        <!-- Slide 10: The Ask -->
+        <div class="slide">
+            <h2>The Ask: $1.5M–$2M Validation Round</h2>
+            <h3>Fueling Market Validation to Growth</h3>
+            
+            <div class="ask-circle">
+                <div class="ask-item">
+                    <h4>💰 Raising $1.5M–$2M</h4>
+                    <p>12-15 months runway to validate product-market fit</p>
+                </div>
+                <div class="ask-item">
+                    <h4>🛠️ Product Development (40%)</h4>
+                    <p>Finalize AI engine & secure HIPAA messaging portal</p>
+                </div>
+                <div class="ask-item">
+                    <h4>🚀 Growth & Acquisition (35%)</h4>
+                    <p>Launch and convert pilot programs into early ARR</p>
+                </div>
+                <div class="ask-item">
+                    <h4>👥 Team Expansion (25%)</h4>
+                    <p>Strategic hires for engineering, customer success, business development</p>
+                </div>
+            </div>
+
+            <div class="quote">
+                "This is a validation fund — not a prototype fund."
+            </div>
+        </div>
+
+        <!-- Slide 11: Future Vision -->
+        <div class="slide">
+            <h2>Future Vision: The Retention Engine</h2>
+            <h3>Beyond the Clinic – Proactive Care Everywhere</h3>
+            
+            <div class="founder-grid">
+                <div class="founder-card">
+                    <div class="step-icon">🏥</div>
+                    <h4>Universal Retention Engine</h4>
+                    <p>Intelligence Layer for All Chronic Care - expand beyond primary care to specialists and health systems</p>
+                </div>
+                <div class="founder-card">
+                    <div class="step-icon">🔮</div>
+                    <h4>Predictive AI Platform</h4>
+                    <p>Proactive Risk Prevention - identify systemic risks across populations before they become crises</p>
+                </div>
+                <div class="founder-card">
+                    <div class="step-icon">🤝</div>
+                    <h4>Ecosystem Partnerships</h4>
+                    <p>Strategic Healthcare Alliances - integration with payers, pharmaceutical companies, and care management</p>
+                </div>
+            </div>
+
+            <div class="quote">
+                "A world where no patient falls through the cracks, optimizing health outcomes for all."
+            </div>
+        </div>
+
+        <!-- Slide 12: Contact -->
+        <div class="slide">
+            <h1>Recoverly.ai</h1>
+            <h3 class="subtitle">The AI Engine for Patient Recovery</h3>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Demo Available</div>
+                    <div class="stat-description">Live walkthrough of AI urgency engine and priority dashboard</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Pilot Program</div>
+                    <div class="stat-description">90-day proof-of-concept with immediate ROI measurement</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">References</div>
+                    <div class="stat-description">Available from beta clinic partners</div>
+                </div>
+            </div>
+
+            <p class="subtitle">Ready to transform patient care together</p>
+            
+            <div class="contact-info">
+                <p><strong>Demo:</strong> demo.recoverly.ai</p>
+                <p><strong>Pitch:</strong> pitch.recoverly.ai</p>
+            </div>
+        </div>
+
+        <div class="navigation">
+            <button class="nav-btn" id="prevBtn" onclick="previousSlide()">← Previous</button>
+            <button class="nav-btn" id="nextBtn" onclick="nextSlide()">Next →</button>
+        </div>
+
+        <div class="slide-counter">
+            <span id="current-slide">1</span> / <span id="total-slides">12</span>
+        </div>
+
+        <div class="keyboard-hint">
+            Use ← → keys or swipe
+        </div>
     </div>
-    <div class="highlight">= $35 Billion</div>
-    <p>Total Addressable Market</p>
-    <div class="quote-box bottom">
-      Every clinic is bleeding money. We help them stop the bleeding and turn it into profit.
-    </div>
-  </div>
+
+    <script>
+        let currentSlide = 0;
+        let slides;
+        let totalSlides;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            slides = document.querySelectorAll('.slide');
+            totalSlides = slides.length;
+            
+            const currentSlideElement = document.getElementById('current-slide');
+            const totalSlidesElement = document.getElementById('total-slides');
+            
+            if (currentSlideElement) currentSlideElement.textContent = '1';
+            if (totalSlidesElement) totalSlidesElement.textContent = totalSlides.toString();
+            
+            updateButtonStates();
+        });
+
+        function updateSlideCounter() {
+            const slideCounter = document.querySelector('.slide-counter');
+            if (slideCounter) {
+                slideCounter.innerHTML = `<span id="current-slide">${currentSlide + 1}</span> / <span id="total-slides">${totalSlides}</span>`;
+            }
+        }
+
+        function updateButtonStates() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            if (prevBtn) prevBtn.disabled = currentSlide === 0;
+            if (nextBtn) nextBtn.disabled = currentSlide === totalSlides - 1;
+        }
+
+        function showSlide(n) {
+            if (!slides) return;
+            
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            
+            updateSlideCounter();
+            updateButtonStates();
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            }
+        }
+
+        function previousSlide() {
+            if (currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+                e.preventDefault();
+            } else if (e.key === 'ArrowLeft') {
+                previousSlide();
+                e.preventDefault();
+            }
+        });
+
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) {
+                nextSlide();
+            }
+            if (touchEndX > touchStartX + 50) {
+                previousSlide();
+            }
+        }
+    </script>
 </body>
 </html>
